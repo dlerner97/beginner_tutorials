@@ -3,6 +3,11 @@ ROS tutorial for ENPM808X class.
 
 # Run Instructions
 
+## Dependencies
+1. **C++11** or greater
+2. **ROS Noetic** or **Melodic**. This package was generated on a system with ROS Noetic. However, the code, CMakeLists, package.xml, as well as the running instructions will work on ROS Melodic as well.
+3. **catkin build** system. The running instructions use the "catkin build" system rather than the "catkin_make." These two ROS package managers are very similar but catkin build is newer and supposedly better. Since this repo only contains the individual package (i.e. src code), one can still use catkin_make as their manager. Except for replacing `catkin build` to `catkin_make` line in the **Running the Beginner Tutorial**, no other instructions should be affected. See online tutorials for more information.
+
 ### Install ROS
 
 Follow the [ROS installation guide](http://wiki.ros.org/ROS/Installation) to install ros on your system.
