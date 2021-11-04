@@ -16,7 +16,7 @@
 #include "beginner_tutorials/SetOutputString.h"
 
 bool disp_error{true};
-ros::Time prev_msg_time = ros::Time::now();
+ros::Time prev_msg_time;
 
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO_STREAM("I heard: [" << msg->data << "]");
@@ -44,6 +44,7 @@ int main(int argc, char **argv) {
   auto sub = n.subscribe("chatter", 1000, chatterCallback);
   auto client = n.serviceClient<beginner_tutorials::SetOutputString>("set_output_string");
 
+  prev_msg_time = ros::Time::now();
   ros::Duration allowed_latency = ros::Duration(0.5);
 
   ros::Time begin = ros::Time::now();
