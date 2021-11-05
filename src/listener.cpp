@@ -44,6 +44,8 @@ int main(int argc, char **argv) {
   auto sub = n.subscribe("chatter", 1000, chatterCallback);
   auto client = n.serviceClient<beginner_tutorials::SetOutputString>("set_output_string");
 
+  ROS_DEBUG_STREAM("Listener node initialized.");
+
   prev_msg_time = ros::Time::now();
   ros::Duration allowed_latency = ros::Duration(0.5);
 
@@ -66,5 +68,6 @@ int main(int argc, char **argv) {
     ros::spinOnce();
   }
 
+  ROS_INFO_STREAM("Listener node is shutting down.");
   return 0;
 }
