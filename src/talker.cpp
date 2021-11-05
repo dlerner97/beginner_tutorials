@@ -5,8 +5,8 @@
  * @version 0.1
  * @date 2021-10-30
  * 
- * @copyright Copyright (c) 2021
- * 
+ * @copyright Copyright (c) 2021. All rights reserved.
+ * This project is released under the MIT Public License.
  */
 
 #include <string>
