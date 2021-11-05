@@ -1,5 +1,8 @@
 # beginner_tutorials
-ROS tutorial for ENPM808X class.
+ROS tutorial for ENPM808X class. This tutorial contains two nodes. One node publishes a certain string to a "chatter" topic. The other node subscribes to the "chatter" topic and prints the results. Furthermore, node 1 is also a server and accepts requests to change the string that it publishes. Node 2 is a service client and changes the string once after 5 seconds just so I can learn how to do this in code. Lastly, one can also make a service request from the terminal. Please see the **Running Beginner Tutorial** section below. 
+
+## Submission Items
+For the rqt console screenshot and static code checks, see the Code Results folder inside the repo.
 
 # Run Instructions
 
@@ -48,20 +51,17 @@ for an https clone. Then,
 cd ..
 
 catkin build
-source <path to workspace>/<workspace name>/devel/setup.bash
-
-# Start a ros core
-roscore
 ```
 
 Open 2 additional terminals. In one,
 ```bash
 source <path to workspace>/<workspace name>/devel/setup.bash
-rosrun beginner_tutorials talker
+roslaunch beginner_tutorials TalkerListener.launch default_string:='"desired string"'
 ```
 
-In another,
+Note a few things. First, the desired string has a default argument and still will work without this param. Second, **make sure you use the quotations as shown above**. The use of spaces in a parameter is strange to the CMD and one must input their desired string exactly as it is shown above. Lastly, this launch file spins up two nodes: a publisher and a subscriber. In my implementation, the subscriber also makes a service call after 5 seconds (changing the string output of the publisher). To make a custom service call bring up the other terminal and follow the instructions below.
+
 ```bash
 source <path to workspace>/<workspace name>/devel/setup.bash
-rosrun beginner_tutorials listener
+rosservice call /set_output_string '"new desired string"'
 ```
