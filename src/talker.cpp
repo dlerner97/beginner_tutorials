@@ -47,13 +47,19 @@ int main(int argc, char **argv) {
   ros::Duration delay(1/1);
   ros::Time begin = ros::Time::now();
 
+  // Set output to the launch file input
   output = std::string(argv[1]);
+
+  // Add a space to input if it's not the last char
   if (*(output.end()-1) != ' ') output += std::string(" ");
   ROS_DEBUG_STREAM("Talker node initialized with output string: " << output << "\".");
 
   int count = 0;
   while (ros::ok()) {
     auto current = ros::Time::now();
+
+    // Send out the message after some delay. Cannot delay between iterations because node is now
+    // a server as well as a publisher
     if (current - begin > delay) {
       std_msgs::String msg;
       msg.data = output + std::to_string(count);
