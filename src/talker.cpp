@@ -22,6 +22,8 @@ std::string output(
 bool set_output_string(beginner_tutorials::SetOutputString::Request &req,
                        beginner_tutorials::SetOutputString::Response &resp) {
   output = std::string(req.msg);
+  ROS_WARN_COND(output == "", "Output has changed to an empty string.");
+  ROS_INFO_STREAM("New output: \"" << output << "\"");
   resp.set = true;
   return true;
 }
@@ -38,13 +40,15 @@ int main(int argc, char **argv) {
   ros::Duration delay(1/10);
   ros::Time begin = ros::Time::now();
 
+  ROS_DEBUG_STREAM("Talker node initialized.");
+
   int count = 0;
   while (ros::ok()) {
     auto current = ros::Time::now();
     if (current - begin > delay) {
       std_msgs::String msg;
       msg.data = output + std::to_string(count);
-      ROS_INFO_STREAM(msg.data);
+      ROS_INFO_STREAM_ONCE(msg.data);
       chatter_pub.publish(msg);
       count++;
       begin = current;
@@ -52,6 +56,6 @@ int main(int argc, char **argv) {
     
     ros::spinOnce();
   }
-
+  ROS_DEBUG_STREAM("Talker node shutting down.");
   return 0;
 }
