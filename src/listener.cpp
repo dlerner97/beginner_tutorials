@@ -34,7 +34,7 @@ void send_service_request(ros::ServiceClient& client, const std::string&& msg) {
       ROS_FATAL_STREAM("Service returned false!");
     } else {
       ROS_DEBUG_STREAM("Succesfully changed message.");
-      ROS_INFO_STREAM("\n==========" << "Changed string to \"" << srv.request.msg << "\"" << "\n==========\n");
+      ROS_INFO_STREAM("\n==========\n" << "Changed string to \"" << srv.request.msg << "\"" << "\n==========\n");
     }
 }
 
