@@ -48,6 +48,7 @@ int main(int argc, char **argv) {
   ros::Time begin = ros::Time::now();
 
   // Set output to the launch file input
+  if (argc < 2) ROS_FATAL_STREAM("Did not receive string input to main.");
   output = std::string(argv[1]);
 
   // Add a space to input if it's not the last char
