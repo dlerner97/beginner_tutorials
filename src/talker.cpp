@@ -10,14 +10,13 @@
  */
 
 #include <string>
+#include <algorithm>
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/SetOutputString.h"
 
-std::string output(
-  "Dani's Tutorial. Make service request to change string. "
-);
+std::string output("");
 
 bool set_output_string(beginner_tutorials::SetOutputString::Request &req,
                        beginner_tutorials::SetOutputString::Response &resp) {
@@ -37,10 +36,12 @@ int main(int argc, char **argv) {
   auto chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
   auto change_str_service = n.advertiseService("set_output_string", set_output_string);
 
-  ros::Duration delay(1/10);
+  ros::Duration delay(1/1);
   ros::Time begin = ros::Time::now();
 
-  ROS_DEBUG_STREAM("Talker node initialized.");
+  output = std::string(argv[1]);
+  if (*(output.end()-1) != ' ') output += std::string(" ");
+  ROS_DEBUG_STREAM("Talker node initialized with output string: " << output << "\".");
 
   int count = 0;
   while (ros::ok()) {
