@@ -37,17 +37,21 @@ void chatterCallback(const std_msgs::String::ConstPtr& msg) {
  * @param msg 
  * @result Publisher string will change.
  */
-void send_service_request(ros::ServiceClient& client, const std::string&& msg) {
+void send_service_request(ros::ServiceClient* client, const std::string&& msg) {
     beginner_tutorials::SetOutputString srv;
     srv.request.msg = msg;
     ROS_DEBUG_STREAM("Changing string to \"" << srv.request.msg << "\"");
-    
-    bool resp = client.call(srv);
+
+    bool resp = client->call(srv);
     if (!resp) {
       ROS_FATAL_STREAM("Service returned false!");
     } else {
       ROS_DEBUG_STREAM("Succesfully changed message.");
-      ROS_INFO_STREAM("\n==========\n" << "Changed string to \"" << srv.request.msg << "\"" << "\n==========\n");
+      ROS_INFO_STREAM(
+        "\n==========\n" <<
+        "Changed string to \"" <<
+        srv.request.msg << "\"" <<
+        "\n==========\n");
     }
 }
 
@@ -62,7 +66,8 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "listener");
   ros::NodeHandle n;
   auto sub = n.subscribe("chatter", 1000, chatterCallback);
-  auto client = n.serviceClient<beginner_tutorials::SetOutputString>("set_output_string");
+  auto client = n.serviceClient<beginner_tutorials::SetOutputString>(
+    "set_output_string");
 
   ROS_DEBUG_STREAM("Listener node initialized.");
 
@@ -79,12 +84,16 @@ int main(int argc, char **argv) {
     // After 5 seconds, change the string that the publisher casts out
     if (!changed && (ros::Time::now() - begin > change_str_dur)) {
       changed = true;
-      send_service_request(client, "Changed message from default. ");
+      send_service_request(&client, "Changed message from default. ");
     }
 
-    // If latency between subsequent chatter messages is more than some allowed latency, complain.
+    // If latency between subsequent chatter messages is more than
+    // some allowed latency, complain.
     if (ros::Time::now() - prev_msg_time > allowed_latency) {
-      ROS_ERROR_STREAM_COND(disp_error, "We have not received a message in >=" << allowed_latency.toSec() << " s. Check if publisher is running.");
+      ROS_ERROR_STREAM_COND(disp_error,
+        "We have not received a message in >=" <<
+        allowed_latency.toSec() <<
+        " s. Check if publisher is running.");
       disp_error = false;
     }
 
