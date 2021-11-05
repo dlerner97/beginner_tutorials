@@ -18,6 +18,14 @@
 
 std::string output("");
 
+/**
+ * @brief Resets the output string object
+ * @result Callback function for set_output_string service
+ * 
+ * @param req 
+ * @param resp 
+ * @return boolean 
+ */
 bool set_output_string(beginner_tutorials::SetOutputString::Request &req,
                        beginner_tutorials::SetOutputString::Response &resp) {
   output = std::string(req.msg);
