@@ -29,6 +29,7 @@ std::string output("");
 bool set_output_string(beginner_tutorials::SetOutputString::Request &req,
                        beginner_tutorials::SetOutputString::Response &resp) {
   output = std::string(req.msg);
+  if (*(output.end()-1) != ' ') output += std::string(" ");
   ROS_WARN_COND(output == "", "Output has changed to an empty string.");
   ROS_INFO_STREAM("New output: \"" << output << "\"");
   resp.set = true;
