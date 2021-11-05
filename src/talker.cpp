@@ -16,7 +16,7 @@
 #include "std_msgs/String.h"
 #include "beginner_tutorials/SetOutputString.h"
 
-std::string* output;
+std::string output{};
 
 /**
  * @brief Resets the output string object
@@ -28,9 +28,9 @@ std::string* output;
  */
 bool set_output_string(beginner_tutorials::SetOutputString::Request &req,
                        beginner_tutorials::SetOutputString::Response &resp) {
-  *output = std::string(req.msg);
-  if (*(output->end()-1) != ' ') *output += std::string(" ");
-  ROS_WARN_COND(*output == "", "Output has changed to an empty string.");
+  output = std::string(req.msg);
+  if (*(output.end()-1) != ' ') output += std::string(" ");
+  ROS_WARN_COND(output == "", "Output has changed to an empty string.");
   ROS_INFO_STREAM("New output: \"" << output << "\"");
   resp.set = true;
   return true;
@@ -51,10 +51,10 @@ int main(int argc, char **argv) {
 
   // Set output to the launch file input
   if (argc < 2) ROS_FATAL_STREAM("Did not receive string input to main.");
-  *output = std::string(argv[1]);
+  output = std::string(argv[1]);
 
   // Add a space to input if it's not the last char
-  if (*(output->end()-1) != ' ') *output += std::string(" ");
+  if (*(output.end()-1) != ' ') output += std::string(" ");
   ROS_DEBUG_STREAM("Talker node initialized with output string: "
     << output << "\".");
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     // iterations because node is now a server as well as a publisher
     if (current - begin > delay) {
       std_msgs::String msg;
-      msg.data = *output + std::to_string(count);
+      msg.data = output + std::to_string(count);
       ROS_INFO_STREAM_ONCE(msg.data);
       chatter_pub.publish(msg);
       count++;
