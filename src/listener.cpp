@@ -79,7 +79,6 @@ int main(int argc, char **argv) {
   bool changed{false};
 
   while (ros::ok()) {
-
     // After 5 seconds, change the string that the publisher casts out
     if (!changed && (ros::Time::now() - begin > change_str_dur)) {
       changed = true;
