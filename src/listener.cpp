@@ -5,6 +5,7 @@
  * @version 0.1
  * @date 2021-10-30
  * 
+<<<<<<< HEAD
  * @copyright Copyright (c) 2021. All rights reserved.
  * This project is released under the MIT Public License.
  */
@@ -62,10 +63,24 @@ void send_service_request(ros::ServiceClient* client, const std::string&& msg) {
  * @param argv 
  * @return int 
  */
+=======
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+
+void chatterCallback(const std_msgs::String::ConstPtr& msg) {
+  ROS_INFO_STREAM("I heard: [" << msg->data << "]");
+}
+
+>>>>>>> main
 int main(int argc, char **argv) {
   ros::init(argc, argv, "listener");
   ros::NodeHandle n;
   auto sub = n.subscribe("chatter", 1000, chatterCallback);
+<<<<<<< HEAD
   auto client = n.serviceClient<beginner_tutorials::SetOutputString>(
     "set_output_string");
 
@@ -101,5 +116,9 @@ int main(int argc, char **argv) {
   }
 
   ROS_INFO_STREAM("Listener node is shutting down.");
+=======
+  ros::spin();
+
+>>>>>>> main
   return 0;
 }
