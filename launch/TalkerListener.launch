@@ -1,8 +1,15 @@
 <launch>
+
+    <arg
+        name="default_string"
+        default='"Danis Tutorial. Make service request to change string. "'
+    />
+
     <node
         name="talker"
         pkg="beginner_tutorials"
         type="talker"
+        args="$(arg default_string)"
         output="screen"
     />
 
