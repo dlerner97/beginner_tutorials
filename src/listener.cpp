@@ -18,12 +18,25 @@
 bool disp_error{true};
 ros::Time prev_msg_time;
 
+/**
+ * @brief Callback function for the chatter subscriber
+ * 
+ * @param msg 
+ * @result prints message data to ros info
+ */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO_STREAM("I heard: [" << msg->data << "]");
   disp_error = true;
   prev_msg_time = ros::Time::now();
 }
 
+/**
+ * @brief Sends out a service request to change the output string in the publisher
+ * 
+ * @param client 
+ * @param msg 
+ * @result Publisher string will change.
+ */
 void send_service_request(ros::ServiceClient& client, const std::string&& msg) {
     beginner_tutorials::SetOutputString srv;
     srv.request.msg = msg;
@@ -38,6 +51,13 @@ void send_service_request(ros::ServiceClient& client, const std::string&& msg) {
     }
 }
 
+/**
+ * @brief Subscriber to the chatter topic and service client to set_output string
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv) {
   ros::init(argc, argv, "listener");
   ros::NodeHandle n;
@@ -55,11 +75,14 @@ int main(int argc, char **argv) {
 
   while (ros::ok()) {
     ROS_DEBUG_STREAM_ONCE("Waiting 5 seconds before service call.");
+
+    // After 5 seconds, change the string that the publisher casts out
     if (!changed && (ros::Time::now() - begin > change_str_dur)) {
       changed = true;
       send_service_request(client, "Changed message from default. ");
     }
 
+    // If latency between subsequent chatter messages is more than some allowed latency, complain.
     if (ros::Time::now() - prev_msg_time > allowed_latency) {
       ROS_ERROR_STREAM_COND(disp_error, "We have not received a message in >=" << allowed_latency.toSec() << " s. Check if publisher is running.");
       disp_error = false;
