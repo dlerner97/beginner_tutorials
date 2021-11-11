@@ -1,5 +1,5 @@
 /**
- * @file talker.hpp
+ * @file talker_class.hpp
  * @author Dani Lerner (dalerner@umd.edu)
  * @brief Talker/publisher class declaration
  * @version 0.1

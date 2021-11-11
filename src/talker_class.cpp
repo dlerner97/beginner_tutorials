@@ -1,5 +1,5 @@
 /**
- * @file talker.cpp
+ * @file talker_class.cpp
  * @author Dani Lerner (dalerner@umd.edu)
  * @brief Talker/publisher class executable
  * @version 0.1
