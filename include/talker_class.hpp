@@ -20,7 +20,6 @@ class Talker {
 
     ros::Duration _delay;
     std::string _output{""};
-    ros::NodeHandle _n;
     ros::Publisher _chatter_pub;
     ros::ServiceServer _change_str_service;
     ros::Time _prev_publish_time;
@@ -33,7 +32,7 @@ class Talker {
      * @param resp 
      * @return boolean 
      */
-    bool set_output_string(beginner_tutorials::SetOutputString::Request &req,
+    bool set_output_string_callback(beginner_tutorials::SetOutputString::Request &req,
                            beginner_tutorials::SetOutputString::Response &resp);
 
     /**
@@ -45,16 +44,12 @@ class Talker {
     void set_output(std::string msg);
 
  public:
-    Talker(int argc, char** argv, double hz=10) : _delay(1.0/hz) {
-        ros::init(argc, argv, "talker");
-        _chatter_pub = _n.advertise<std_msgs::String>("chatter", 1000);
-        _change_str_service = _n.advertiseService(
-            "set_output_string", set_output_string, this);
-
-        // Set output to the launch file input
-        if (argc < 2) ROS_FATAL_STREAM("Did not receive string input to main.");
-        set_output(argv[1]);
+    Talker(ros::NodeHandle* n, std::string def_msg, double hz=10) : _delay(1.0/hz) {
+        _chatter_pub = n->advertise<std_msgs::String>("chatter", 1000);
+        _change_str_service = n->advertiseService(
+            "set_output_string", &Talker::set_output_string_callback, this);
         
+        set_output(def_msg);
         ROS_DEBUG_STREAM("Talker node initialized with output string: "
                          << _output << "\".");
 
