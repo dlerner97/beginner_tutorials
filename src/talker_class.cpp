@@ -16,7 +16,7 @@
 #include "beginner_tutorials/SetOutputString.h"
 #include "../include/talker_class.hpp"
 
-bool Talker::set_output_string(beginner_tutorials::SetOutputString::Request &req,
+bool Talker::set_output_string_callback(beginner_tutorials::SetOutputString::Request &req,
                                beginner_tutorials::SetOutputString::Response &resp) {
     set_output(req.msg);
     ROS_WARN_COND(_output == "", "Output has changed to an empty string.");
