@@ -29,9 +29,10 @@ catkin_package(
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${CMAKE_SOURCE_DIR}/include
 )
 
-add_executable(talker src/talker.cpp)
+add_executable(talker src/talker.cpp src/talker_class.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
 
 add_executable(listener src/listener.cpp)
