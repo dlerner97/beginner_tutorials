@@ -11,6 +11,7 @@
 
 #include <string>
 
+#include <geometry_msgs/Twist.h>
 #include "../include/talker_class.hpp"
 
 /**
@@ -24,9 +25,19 @@ int main(int argc, char **argv) {
   if (argc < 2) ROS_FATAL_STREAM("Did not receive string input to main.");
 
   Talker talker(&n, std::string(argv[1]), 10);
+  
+  geometry_msgs::Twist twist;
+  twist.linear.x = 1;
+  twist.linear.y = 2;
+  twist.linear.z = 3;
+  twist.angular.x = 4;
+  twist.angular.y = 5;
+  twist.angular.z = 6;
 
   while (ros::ok()) {
     talker.periodic_publish();
+    twist.linear.x = static_cast<int>(++twist.linear.x) % 5;
+    talker.publish_tf(twist);
     ros::spinOnce();
   }
   return 0;
