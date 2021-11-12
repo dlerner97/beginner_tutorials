@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   message_generation
+  tf
 )
 
 add_service_files(
@@ -23,7 +24,7 @@ generate_messages(
 catkin_package(
  INCLUDE_DIRS include
  LIBRARIES beginner_tutorials
- CATKIN_DEPENDS roscpp std_msgs message_runtime
+ CATKIN_DEPENDS roscpp std_msgs message_runtime tf
  DEPENDS
 )
 
