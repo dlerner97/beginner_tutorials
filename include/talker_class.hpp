@@ -11,8 +11,10 @@
 
 #include <string>
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <geometry_msgs/Twist.h>
+#include <tf/transform_broadcaster.h>
 #include "beginner_tutorials/SetOutputString.h"
 
 class Talker {
@@ -21,6 +23,7 @@ class Talker {
     ros::Duration _delay;
     std::string _output{""};
     ros::Publisher _chatter_pub;
+    tf::TransformBroadcaster _br;
     ros::ServiceServer _change_str_service;
     ros::Time _prev_publish_time;
 
@@ -69,4 +72,11 @@ class Talker {
      */
     void periodic_publish(bool disp_msg=false);
 
+    /**
+     * @brief Publishes given tf to tf broadcaster
+     * 
+     * @param twist (i.e. translation and rotation btwn frames)
+     * @result TF is published to the tf broadcaster
+     */
+    void publish_tf(const geometry_msgs::Twist& twist);
 };
