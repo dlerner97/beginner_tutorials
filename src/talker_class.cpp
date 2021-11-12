@@ -11,8 +11,10 @@
 
 #include <string>
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <geometry_msgs/Twist.h>
+#include <tf/transform_broadcaster.h>
 #include "beginner_tutorials/SetOutputString.h"
 #include "../include/talker_class.hpp"
 
@@ -44,4 +46,17 @@ void Talker::periodic_publish(bool disp_msg) {
         _prev_publish_time = current;
         ROS_INFO_STREAM_COND(disp_msg, msg.data);
     }
+}
+
+void Talker::publish_tf(const geometry_msgs::Twist& twist) {
+    ROS_DEBUG_STREAM("x: " << twist.linear.x << ", y: " << twist.linear.y <<
+        ", z: " << twist.linear.z << ", R: " << twist.angular.x <<
+        ", P: " << twist.angular.y << " , Y: " << twist.angular.z);
+    tf::Transform transform;
+    tf::Quaternion q;
+    transform.setOrigin(
+        tf::Vector3(twist.linear.x, twist.linear.y, twist.linear.z));
+    q.setRPY(twist.linear.x, twist.linear.y, twist.linear.z);
+    transform.setRotation(q);
+    _br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 }
