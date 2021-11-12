@@ -65,3 +65,22 @@ Note a few things. First, the desired string has a default argument and still wi
 source <path to workspace>/<workspace name>/devel/setup.bash
 rosservice call /set_output_string '"new desired string"'
 ```
+
+### Generate the TF Graph
+Note that a generated graph called `frames.pdf` can be found in the Code Results folder of this repo.
+
+Open up a new terminal. Make sure that the tf2 package is installed on your system, then run the generator.
+
+```bash
+sudo apt-get install ros-$ROS_DISTRO-tf2-tools
+cd *desired_graph_location*
+rosrun tf2_tools view_frames.py
+```
+
+Go to that location in your files and open the `frames.pdf`. 
+
+To view the transform in real time, make sure the tf2-tools package is installed as shown above and type into a terminal:
+
+```bash
+rosrun tf2_tools echo.py "world" "talk"
+```
