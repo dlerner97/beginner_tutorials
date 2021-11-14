@@ -1,4 +1,13 @@
-
+ /**
+ * @file talker_test_class.cpp
+ * @author Dani Lerner (dalerner@umd.edu)
+ * @brief Test class execution
+ * @version 0.1
+ * @date 2021-10-30
+ * 
+ * @copyright Copyright (c) 2021. All rights reserved.
+ * This project is released under the MIT Public License.
+ */
 
 #include <ros/ros.h>
 #include <std_msgs/String.h>

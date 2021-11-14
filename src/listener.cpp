@@ -12,6 +12,14 @@
 #include "ros/ros.h"
 #include "../include/listener_class.hpp"
 
+/**
+ * @brief Listens to chatter topic, prints msgs over the topic and changes ouptut
+ *        str after 5 seconds
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv) {
   ros::init(argc, argv, "listener");
   ros::NodeHandle n;

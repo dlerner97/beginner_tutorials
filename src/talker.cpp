@@ -16,7 +16,12 @@
 #include "../include/talker_class.hpp"
 
 /**
- * This tutorial demonstrates simple sending of messages over the ROS system.
+ * @brief This talker node periodically publishes a string and acts as a service
+ *        server, providing other nodes a method to change the output string
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
  */
 int main(int argc, char **argv) {
   ros::init(argc, argv, "talker");
