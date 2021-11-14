@@ -9,6 +9,8 @@
  * This project is released under the MIT Public License.
  */
 
+#pragma once
+
 #include <string>
 
 #include "ros/ros.h"
@@ -17,7 +19,6 @@
 
 class Listener {
  private:
-
     bool _disp_error{true};
     ros::Time _prev_msg_time;
     ros::Duration _allowed_latency;
@@ -33,11 +34,12 @@ class Listener {
     void chatterCallback(const std_msgs::String::ConstPtr& msg);
 
  public:
-    Listener(ros::NodeHandle* n, double allowed_latency=0.5) :
+    explicit Listener(ros::NodeHandle* n, double allowed_latency = 0.5) :
             _allowed_latency(allowed_latency) {
-        _chatter_sub = n->subscribe("chatter", 1000, &Listener::chatterCallback, this);
-        _req_set_output_client = n->serviceClient<beginner_tutorials::SetOutputString>(
-            "set_output_string");
+        _chatter_sub = n->subscribe("chatter",
+            1000, &Listener::chatterCallback, this);
+        _req_set_output_client = n->serviceClient<
+            beginner_tutorials::SetOutputString>("set_output_string");
 
         ROS_DEBUG_STREAM("Listener node initialized.");
         _prev_msg_time = ros::Time::now();

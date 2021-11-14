@@ -9,11 +9,13 @@
  * This project is released under the MIT Public License.
  */
 
+#pragma once
+
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 
-class TalkerTest { 
-
+class TalkerTest {
+ private:
     int _num_msgs{0};
     bool _first_msg{true};
     ros::Duration _sum;
@@ -26,10 +28,11 @@ class TalkerTest {
      * @param msg 
      */
     void chatterCallback(const std_msgs::String::ConstPtr& msg);
- 
+
  public:
-    TalkerTest(ros::NodeHandle* n) : _sum(0.0) {
-        _chatter_sub = n->subscribe("chatter", 1000, &TalkerTest::chatterCallback, this);
+    explicit TalkerTest(ros::NodeHandle* n) : _sum(0.0) {
+        _chatter_sub = n->subscribe(
+            "chatter", 1000, &TalkerTest::chatterCallback, this);
 
         ROS_DEBUG_STREAM("Listener node initialized.");
         _prev_msg_time = ros::Time::now();

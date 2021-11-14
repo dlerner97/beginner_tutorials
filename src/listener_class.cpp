@@ -25,9 +25,9 @@ void Listener::send_service_request(const std::string&& msg) {
     ROS_DEBUG_STREAM("Changing string to \"" << srv.request.msg << "\"");
 
     bool resp = _req_set_output_client.call(srv);
-    if (!resp)
+    if (!resp) {
         ROS_FATAL_STREAM("Service returned false!");
-    else {
+    } else {
         ROS_DEBUG_STREAM("Succesfully changed message.");
         ROS_INFO_STREAM(
             "\n==========\n" <<

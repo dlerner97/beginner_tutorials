@@ -9,10 +9,10 @@
  * This project is released under the MIT Public License.
  */
 
-#include <string>
-
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include <string>
+
 #include "../include/talker_class.hpp"
 
 /**
@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   if (argc < 2) ROS_FATAL_STREAM("Did not receive string input to main.");
 
   Talker talker(&n, std::string(argv[1]), 10);
-  
+
   geometry_msgs::Twist twist;
   twist.linear.x = 1;
   twist.linear.y = 2;

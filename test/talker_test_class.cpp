@@ -22,7 +22,7 @@ void TalkerTest::chatterCallback(const std_msgs::String::ConstPtr&) {
         _sum += (current_time - _prev_msg_time);
         _num_msgs++;
         _prev_msg_time = current_time;
-    }  
+    }
 }
 
 double TalkerTest::get_avg_rate(void) {

@@ -9,17 +9,19 @@
  * This project is released under the MIT Public License.
  */
 
-#include <string>
-
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/Twist.h>
 #include <tf/transform_broadcaster.h>
+
+#include <string>
+
 #include "beginner_tutorials/SetOutputString.h"
 #include "../include/talker_class.hpp"
 
-bool Talker::set_output_string_callback(beginner_tutorials::SetOutputString::Request &req,
-                               beginner_tutorials::SetOutputString::Response &resp) {
+bool Talker::set_output_string_callback(
+        beginner_tutorials::SetOutputString::Request &req,
+        beginner_tutorials::SetOutputString::Response &resp) {
     set_output(req.msg);
     ROS_WARN_COND(_output == "", "Output has changed to an empty string.");
     ROS_INFO_STREAM("New output: \"" << _output << "\"");
@@ -58,5 +60,6 @@ void Talker::publish_tf(const geometry_msgs::Twist& twist) {
         tf::Vector3(twist.linear.x, twist.linear.y, twist.linear.z));
     q.setRPY(twist.linear.x, twist.linear.y, twist.linear.z);
     transform.setRotation(q);
-    _br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+    _br.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 }

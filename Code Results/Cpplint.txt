@@ -1,7 +1,13 @@
-➜  beginner_tutorials git:(Week10_HW) ✗ cpplint src/*
+➜  beginner_tutorials git:(Week11_HW) ✗ cpplint include/* src/* test/*
+Done processing include/listener_class.hpp
+include/talker_class.hpp:40:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::SetOutputString::Request &req  [runtime/references] [2]
+include/talker_class.hpp:41:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::SetOutputString::Response &resp  [runtime/references] [2]
+Done processing include/talker_class.hpp
+Done processing include/talker_test_class.hpp
 Done processing src/listener.cpp
-src/talker.cpp:19:  Static/global string variables are not permitted.  [runtime/string] [4]
-src/talker.cpp:29:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::SetOutputString::Request &req  [runtime/references] [2]
-src/talker.cpp:30:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::SetOutputString::Response &resp  [runtime/references] [2]
+Done processing src/listener_class.cpp
 Done processing src/talker.cpp
-Total errors found: 3
+Done processing src/talker_class.cpp
+Done processing test/talker_test_class.cpp
+Done processing test/talker_tests.cpp
+Total errors found: 2

@@ -9,17 +9,18 @@
  * This project is released under the MIT Public License.
  */
 
-#include <string>
+#pragma once
 
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/Twist.h>
 #include <tf/transform_broadcaster.h>
+#include <string>
+
 #include "beginner_tutorials/SetOutputString.h"
 
 class Talker {
  private:
-
     ros::Duration _delay;
     std::string _output{""};
     ros::Publisher _chatter_pub;
@@ -35,8 +36,9 @@ class Talker {
      * @param resp 
      * @return boolean 
      */
-    bool set_output_string_callback(beginner_tutorials::SetOutputString::Request &req,
-                           beginner_tutorials::SetOutputString::Response &resp);
+    bool set_output_string_callback(
+        beginner_tutorials::SetOutputString::Request &req,
+        beginner_tutorials::SetOutputString::Response &resp);
 
     /**
      * @brief Sets the output string and adds space to end if none exists
@@ -47,11 +49,12 @@ class Talker {
     void set_output(std::string msg);
 
  public:
-    Talker(ros::NodeHandle* n, std::string def_msg, double hz=10) : _delay(1.0/hz) {
+    Talker(ros::NodeHandle* n, std::string def_msg, double hz = 10) :
+            _delay(1.0/hz) {
         _chatter_pub = n->advertise<std_msgs::String>("chatter", 1000);
         _change_str_service = n->advertiseService(
             "set_output_string", &Talker::set_output_string_callback, this);
-        
+
         set_output(def_msg);
         ROS_DEBUG_STREAM("Talker node initialized with output string: "
                          << _output << "\".");
@@ -70,7 +73,7 @@ class Talker {
      *                   Whether, we should print to screen 
      * @result Msg is published on chatter topic
      */
-    void periodic_publish(bool disp_msg=false);
+    void periodic_publish(bool disp_msg = false);
 
     /**
      * @brief Publishes given tf to tf broadcaster
