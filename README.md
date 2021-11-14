@@ -49,7 +49,6 @@ for an https clone. Then,
 ```bash
 # Go into the catkin_ws folder
 cd ..
-
 catkin build
 ```
 
@@ -83,4 +82,12 @@ To view the transform in real time, make sure the tf2-tools package is installed
 
 ```bash
 rosrun tf2_tools echo.py "world" "talk"
+```
+
+### Running the Unit Test
+Make sure that the catkin package is built before reaching this step! If it is not built, go back to the **Running the Beginner Tutorial** section and follow the instructions until `catkin build`. Once complete, open up a terminal and follow the instructions below.
+
+```bash
+catkin build --make-args talker_test
+roslaunch beginner_tutorials TalkerTests.launch
 ```
