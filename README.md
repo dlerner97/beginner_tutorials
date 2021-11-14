@@ -9,7 +9,7 @@ For the rqt console screenshot and static code checks, see the Code Results fold
 ## Dependencies
 1. **C++11** or greater
 2. **ROS Noetic** or **Melodic**. This package was generated on a system with ROS Noetic. However, the code, CMakeLists, package.xml, as well as the running instructions will work on ROS Melodic as well.
-3. **catkin build** system. The running instructions use the "catkin build" system rather than the "catkin_make." These two ROS package managers are very similar but catkin build is newer and supposedly better. Since this repo only contains the individual package (i.e. src code), one can still use catkin_make as their manager. Except for replacing `catkin build` to `catkin_make` line in the **Running the Beginner Tutorial**, no other instructions should be affected. See online tutorials for more information.
+3. **catkin build** (i.e. catkin-tools) system. The running instructions use the "catkin build" system rather than the "catkin_make." These two ROS package managers are very similar but catkin build is newer and supposedly better. Since this repo only contains the individual package (i.e. src code), one can still use catkin_make as their manager. Except for replacing `catkin build` to `catkin_make` line in the **Running the Beginner Tutorial**, no other instructions should be affected. See online tutorials for more information.
 
 ### Install ROS
 
@@ -90,4 +90,28 @@ Make sure that the catkin package is built before reaching this step! If it is n
 ```bash
 catkin build --make-args talker_test
 roslaunch beginner_tutorials TalkerTests.launch
+```
+
+### Recording and Using ROSBag
+To record a rosbag, use the same `TalkerListener.launch` file but this launch file now has multiple command line arguments. The `record_flag` argument is boolean and tell the program to record a rosbag or not. The `duration:=#` arg controls how long the rosbag will record (default is 15 seconds). Lastly the `bag_directory:=path/to/bagfile` gives the user ability to choose a directory and filename for the bagfile. Note, please start the bag file name with "bag." Otherwise, this file will prevent github from pushing any changes in the repo.
+
+```bash
+roslaunch beginner_tutorials TalkerListener.launch record_flag:=true
+```
+
+Once a rosbag is recorded, one can play it back and use the listener as if a publisher was running. Open 3 terminals.
+
+In the first terminal, open a ros master:
+```bash
+roscore
+```
+
+In terminal #2, run the listener node:
+```bash
+rosrun beginner_tutorials listener
+```
+
+In the last terminal, run the rosbag:
+```bash
+rosbag play <path/to/bag file>
 ```
