@@ -1,0 +1,10 @@
+<launch>
+
+    <node
+        name="talker_test"
+        pkg="beginner_tutorials"
+        type="talker_test"
+        output="screen"
+    />
+
+</launch>
