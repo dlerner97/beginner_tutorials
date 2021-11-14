@@ -35,5 +35,10 @@ class TalkerTest {
         _prev_msg_time = ros::Time::now();
     }
 
+    /**
+     * @brief Get the avg rate of incoming messages on topic
+     * 
+     * @return double - avg rate (Hz)
+     */
     double get_avg_rate(void);
 };
