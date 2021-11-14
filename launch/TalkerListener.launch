@@ -5,6 +5,21 @@
         default='"Danis Tutorial. Make service request to change string. "'
     />
 
+    <arg
+        name="bag_directory"
+        default="$(find beginner_tutorials)/branch_results/bag"
+    />
+
+    <arg
+        name="record_flag"
+        default="false"
+    />
+
+    <arg
+        name="duration"
+        default="15"
+    />
+
     <node
         name="talker"
         pkg="beginner_tutorials"
@@ -18,6 +33,14 @@
         pkg="beginner_tutorials"
         type="listener"
         output="screen"
+    />
+
+    <node
+        name="bag_record"
+        pkg="rosbag"
+        type="record"
+        args="record -a --duration=$(arg duration) -o $(arg bag_directory)"
+        if="$(eval record_flag)"
     />
 
 </launch>
