@@ -28,6 +28,9 @@ catkin_package(
  DEPENDS
 )
 
+catkin_add_gtest(talker_test test/talker_tests.cpp test/talker_test_class.cpp src/talker_class.cpp)
+target_link_libraries(talker_test ${catkin_LIBRARIES})
+
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${CMAKE_SOURCE_DIR}/include
