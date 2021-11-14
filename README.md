@@ -111,7 +111,8 @@ In terminal #2, run the listener node:
 rosrun beginner_tutorials listener
 ```
 
-In the last terminal, run the rosbag:
+In the last terminal, check some rosbag information and run the rosbag:
 ```bash
+rosbag info <path/to/bag file>
 rosbag play <path/to/bag file>
 ```
